@@ -80,7 +80,7 @@ class AccessToken
         $this->message = new Message();
     }
 
-    function setUid($uid)
+    function seta($uid)
     {
         if ($uid === 0) {
             $this->uid = "";
@@ -114,7 +114,7 @@ class AccessToken
         $accessToken->appCertificate = $appCertificate;
         $accessToken->channelName = $channelName;
 
-        $accessToken->setUid($uid);
+        $accessToken->uid = $uid;
         $accessToken->message = new Message();
         return $accessToken;
     }

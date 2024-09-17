@@ -29,6 +29,7 @@ Broadcast::channel('wossop-channel', function ($user) {
 });
 
 Broadcast::channel('agora-online-channel', function ($user) {
+   // Log::info('User authenticated: ' . $user->name);
     return ['id' => $user->id, 'name' => $user->name];
 });
 

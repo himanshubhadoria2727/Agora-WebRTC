@@ -98,6 +98,7 @@ export default {
   },
 
   mounted() {
+    console.log("Mounted")
     this.initUserOnlineChannel();
     this.initUserOnlineListeners();
   },
@@ -109,15 +110,40 @@ export default {
      * Websockets with Pusher
      */
     initUserOnlineChannel() {
+      console.log("joining online channel" )
+      try{
       this.userOnlineChannel = window.Echo.join("agora-online-channel");
+      }
+      catch(e){
+        console.log(e);
+      }
+
     },
 
     initUserOnlineListeners() {
+    window.Echo.join('agora-online-channel')
+    .here((users) => {
+        console.log("Currently online users: ", users);
+    })
+    .joining((user) => {
+        console.log(user.name + " has joined the channel.");
+    })
+    .leaving((user) => {
+        console.log(user.name + " has left the channel.");
+    })
+    .error((error) => {
+        console.error("Error joining channel: ", error);
+    });
+
+
+
       this.userOnlineChannel.here((users) => {
+        console.log("userd" + users)
         this.onlineUsers = users;
       });
 
       this.userOnlineChannel.joining((user) => {
+      console.log("user joined"+ user)
         // check user availability
         const joiningUserIndex = this.onlineUsers.findIndex(
           (data) => data.id === user.id
@@ -128,6 +154,7 @@ export default {
       });
 
       this.userOnlineChannel.leaving((user) => {
+        console.log("user leaving")
         const leavingUserIndex = this.onlineUsers.findIndex(
           (data) => data.id === user.id
         );

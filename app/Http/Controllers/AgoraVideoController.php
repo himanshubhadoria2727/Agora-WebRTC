@@ -15,6 +15,7 @@ class AgoraVideoController extends Controller
     {
         // fetch all users apart from the authenticated user
         $users = User::where('id', '<>', Auth::id())->get();
+        
         return view('agora-chat', ['users' => $users]);
     }
 
